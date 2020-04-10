@@ -27,6 +27,14 @@ module.exports = function (app) {
       returnUnit
     );
 
-    //res.json
+    let obj = {
+      initNum,
+      initUnit,
+      returnNum,
+      returnUnit,
+      string: toString,
+    };
+
+    res.json(obj);
   });
 };
