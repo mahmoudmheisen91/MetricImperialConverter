@@ -18,23 +18,40 @@ module.exports = function (app) {
     var input = req.query.input;
     var initNum = convertHandler.getNum(input);
     var initUnit = convertHandler.getUnit(input);
-    var returnNum = convertHandler.convert(initNum, initUnit);
-    var returnUnit = convertHandler.getReturnUnit(initUnit);
-    var toString = convertHandler.getString(
-      initNum,
-      initUnit,
-      returnNum,
-      returnUnit
-    );
+    let result = "";
 
-    let obj = {
-      initNum,
-      initUnit,
-      returnNum,
-      returnUnit,
-      string: toString,
-    };
+    if (initNum !== "invalid number")
+      var returnNum = convertHandler.convert(initNum, initUnit);
+    else result = "invalid number";
 
-    res.json(obj);
+    if (initUnit !== "invalid unit")
+      var returnUnit = convertHandler.getReturnUnit(initUnit);
+    else if (result === "invalid number") result = "invalid number and unit";
+    else result = "invalid unit";
+
+    if (
+      result === "invalid number" ||
+      result === "invalid unit" ||
+      result === "invalid number and unit"
+    ) {
+      res.json({ result });
+    } else {
+      var toString = convertHandler.getString(
+        initNum,
+        initUnit,
+        returnNum,
+        returnUnit
+      );
+
+      let obj = {
+        initNum,
+        initUnit,
+        returnNum,
+        returnUnit,
+        string: toString,
+      };
+
+      res.json(obj);
+    }
   });
 };
