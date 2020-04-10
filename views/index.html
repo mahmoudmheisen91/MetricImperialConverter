@@ -45,7 +45,7 @@
     </header>
 
     <div class="api-test">
-      <form class="container">
+      <form class="container" method="POST" action="/api/convert/api_test/">
         <p id="label" class="center"><strong>API Test</strong></p>
         <label for="value-unit"
           >Enter Value and Unit:<code> GET /api/convert</code></label
@@ -53,14 +53,13 @@
         <br />
         <input
           type="text"
-          id="value-unit"
-          name="value-unit"
+          id="valueunit"
+          name="valueunit"
           placeholder="eg. 2.5km"
         /><br />
         <button id="convert" type="submit">
           <i class="fa fa-paper-plane"></i> Convert Value
         </button>
-        <code id="result">Here is the result</code>
       </form>
     </div>
 
@@ -88,34 +87,3 @@
     </footer>
   </body>
 </html>
-
-<!--   
-
-      <form id="convertForm" class="border">
-        <input
-          type="text"
-          id="convertField"
-          name="input"
-          placeholder="3.1mi"
-          style="width: 200px;"
-        />
-        <input id="convert" type="submit" value="Convert!" />
-      </form>
-    
-
-    <script>
-      $(function () {
-        $("#convertForm").submit(function () {
-          event.preventDefault();
-          $.ajax({
-            url: "/api/convert",
-            type: "get",
-            data: $("#convertForm").serialize(),
-            success: function (data) {
-              $("#result").text(data.string || data);
-              $("#jsonResult").text(JSON.stringify(data));
-            },
-          });
-        });
-      });
-    </script> -->
