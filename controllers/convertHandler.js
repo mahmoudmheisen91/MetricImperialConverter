@@ -39,8 +39,9 @@ function ConvertHandler() {
         sum += item;
       }
     });
+    sum = sum.toLowerCase();
 
-    if (["km", "mi", "kg", "lbs", "gal", "L"].includes(sum)) result = sum;
+    if (["km", "mi", "kg", "lbs", "gal", "l"].includes(sum)) result = sum;
     else result = "invalid unit";
     return result;
   };
@@ -51,17 +52,24 @@ function ConvertHandler() {
       lbs: "kg",
       km: "mi",
       mi: "km",
-      L: "gal",
-      gal: "L",
+      l: "gal",
+      gal: "l",
     };
 
-    return unitsLookup[initUnit];
+    return unitsLookup[initUnit.toLowerCase()];
   };
 
   this.spellOutUnit = function (unit) {
-    var result;
+    let unitsLookup = {
+      kg: "Kilograms",
+      lbs: "Pound",
+      km: "Kilometers",
+      mi: "Miles",
+      l: "Liters",
+      gal: "Galon",
+    };
 
-    return result;
+    return unitsLookup[unit.toLowerCase()];
   };
 
   this.convert = function (initNum, initUnit) {
@@ -70,15 +78,18 @@ function ConvertHandler() {
       lbs: 0.453592,
       km: 1.0 / 1.60934,
       mi: 1.60934,
-      L: 1.0 / 3.78541,
+      l: 1.0 / 3.78541,
       gal: 3.78541,
     };
 
-    return convertLookup[initUnit] * initNum;
+    let result = convertLookup[initUnit.toLowerCase()] * initNum;
+    return Math.round(result * 100000) / 100000;
   };
 
   this.getString = function (initNum, initUnit, returnNum, returnUnit) {
-    return `${initNum} ${initUnit} converts to ${returnNum} ${returnUnit}`;
+    return `${initNum} ${this.spellOutUnit(
+      initUnit
+    )} converts to ${returnNum} ${this.spellOutUnit(returnUnit)}`;
   };
 }
 
